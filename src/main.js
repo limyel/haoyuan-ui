@@ -6,6 +6,8 @@ import App from './App.vue'
 import router from './router'
 import "virtual:windi.css";
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import 'element-plus/theme-chalk/el-message.css'
+import 'element-plus/theme-chalk/el-message-box.css'
 
 const app = createApp(App)
 

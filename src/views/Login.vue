@@ -38,6 +38,12 @@
 
 <script setup>
 import { reactive, ref } from "vue";
+import { login } from "@/api/sys-user";
+import { ElMessage } from "element-plus";
+import { useRouter } from "vue-router";
+import { useCookies } from "@vueuse/integrations";
+
+const router = useRouter();
 
 const form = reactive({
   username: '',
@@ -69,7 +75,16 @@ const onSubmit = () => {
     if (!valid) {
       return false;
     }
-    alert("fs")
+    login(...form).then(resp => {
+      ElMessage.success('登录成功');
+
+      const cookie = useCookies();
+      cookie.set('jwt-token', resp.data.data.token);
+
+      router.push('/');
+    }).catch(err => {
+      ElMessage.error(err.data.msg || '请求失败');
+    });
   })
 }
 
