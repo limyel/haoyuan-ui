@@ -13,10 +13,16 @@ export default defineConfig({
     vue(),
     windi(),
     AutoImport({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [
+        // 自动导入 Element Plus 组件
+        ElementPlusResolver(),
+      ],
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [
+        // 自动注册 Element Plus 组件
+        ElementPlusResolver(),
+      ],
     }),
   ],
   resolve: {

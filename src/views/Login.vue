@@ -1,6 +1,6 @@
 <template>
   <el-row class="min-h-screen bg-sky-500">
-    <el-col class="flex items-center justify-center flex-col" :span="16">
+    <el-col class="flex items-center justify-center" :span="16">
       <div>
         <div class="font-bold text-5xl text-light-50 mb-4">浩元</div>
         <div class="text-light-900 text-sm">浩元商城后台管理系统</div>
@@ -15,10 +15,18 @@
       </div>
       <el-form class="w-[250px]" :model="form">
         <el-form-item>
-          <el-input v-model="form.username" placeholder="用户名" />
+          <el-input v-model="form.username" placeholder="用户名">
+            <template #prefix>
+              <el-icon><User /></el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="form.password" placeholder="密码" />
+          <el-input v-model="form.password" placeholder="密码">
+            <template #prefix>
+              <el-icon><Lock /></el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" class="w-[250px]" round>登 录</el-button>
