@@ -13,23 +13,23 @@
         <span>账号密码登录</span>
         <span class="line"></span>
       </div>
-      <el-form class="w-[250px]" :model="form">
-        <el-form-item>
+      <el-form class="w-[250px]" :model="form" :rules="rules" ref="formRef">
+        <el-form-item prop="username">
           <el-input v-model="form.username" placeholder="用户名">
             <template #prefix>
               <el-icon><User /></el-icon>
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item>
-          <el-input v-model="form.password" placeholder="密码">
+        <el-form-item prop="password">
+          <el-input v-model="form.password" type="password" placeholder="密码">
             <template #prefix>
               <el-icon><Lock /></el-icon>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="w-[250px]" round>登 录</el-button>
+          <el-button type="primary" class="w-[250px]" round @click="onSubmit">登 录</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -37,9 +37,41 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 
-const form = reactive({})
+const form = reactive({
+  username: '',
+  password: ''
+})
+
+const rules = {
+  username: [
+    {
+      required: true,
+      message: '用户名不能为空',
+      trigger: 'blur'
+    }
+  ],
+  password: [
+    {
+      required: true,
+      message: '密码不能为空',
+      trigger: 'blur'
+    }
+  ]
+};
+
+// 拿到 el-form 节点
+const formRef = ref(null);
+
+const onSubmit = () => {
+  formRef.value.validate(valid => {
+    if (!valid) {
+      return false;
+    }
+    alert("fs")
+  })
+}
 
 </script>
 
