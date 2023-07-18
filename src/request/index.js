@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useCookies } from "@vueuse/integrations";
 import router from "@/router";
 import { ElMessage } from "element-plus";
+import Cookies from 'js-cookie'
 
 const request = axios.create({
   baseURL: 'http://localhost:8080'
@@ -10,8 +10,7 @@ request.interceptors.request.use(config => {
   if (config.url.indexOf('security/ligin') !== -1) {
     return config;
   }
-  const cookie = useCookies();
-  const token = cookie.get('jwt-token');
+  const token = Cookies.get('jwt-token');
   if (token) {
     config.headers.Authorization = token;
   } else {
@@ -23,6 +22,13 @@ request.interceptors.request.use(config => {
   } else {
     ElMessage.error(error.message);
   }
+  return Promise.reject(error);
+})
+
+request.interceptors.response.use(resp => {
+  return resp.data.data;
+}, error => {
+  ElMessage.error(error.response.data.msg || '请求失败');
   return Promise.reject(error);
 })
 

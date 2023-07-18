@@ -41,7 +41,7 @@ import { reactive, ref } from "vue";
 import { login } from "@/api/sys-user";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
-import { useCookies } from "@vueuse/integrations";
+import Cookies from 'js-cookie';
 
 const router = useRouter();
 
@@ -78,8 +78,7 @@ const onSubmit = () => {
     login(...form).then(resp => {
       ElMessage.success('登录成功');
 
-      const cookie = useCookies();
-      cookie.set('jwt-token', resp.data.data.token);
+      Cookies.set('jwt-token', resp.data.data.token);
 
       router.push('/');
     }).catch(err => {
