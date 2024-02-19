@@ -1,7 +1,11 @@
 .DS_Store
 node_modules
 /dist
+**/*.log
 
+tests/**/coverage/
+tests/e2e/reports
+selenium-debug.log
 
 # local env files
 .env.local
